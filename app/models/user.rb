@@ -66,6 +66,9 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
   
+  def activated?
+    activated
+  end
   
   private 
     

@@ -3,8 +3,9 @@ require 'test_helper'
 class UsersIndexTest < ActionDispatch::IntegrationTest
 
   def setup
-    @admin     = users(:michael)
-    @non_admin = users(:archer)
+    @admin     =  users(:michael)
+    @non_admin =  users(:archer)
+    @non_active = users(:lana)
   end
 
   test "index as admin including pagination and delete links" do
@@ -28,5 +29,17 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     log_in_as(@non_admin)
     get users_path
     assert_select 'a', text: 'delete', count: 0
+  end
+  
+  test "index with non activated user" do
+    log_in_as(@non_admin)
+    # non active user
+    @non_active.toggle!(:activated)
+    get users_path
+    assert_no_match 'Lana', response.body
+    #activate user
+    @non_active.toggle!(:activated)
+    get users_path
+    assert_match 'Lana', response.body
   end
 end
