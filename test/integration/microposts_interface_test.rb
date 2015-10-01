@@ -3,7 +3,8 @@ require 'test_helper'
 class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users(:michael)
+    @user       = users(:michael)
+    @other_user = users(:lana)
   end
 
   test "micropost interface" do
@@ -23,6 +24,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
+    assert_match @other_user.name, response.body
     # Delete a post.
     assert_select 'a', text: 'delete'
     first_micropost = @user.microposts.paginate(page: 1).first
