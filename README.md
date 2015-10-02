@@ -1,6 +1,4 @@
-# Ruby on Rails Tutorial: sample application
+# Twitter Clone App
 
-This is the sample application for the
-[*Ruby on Rails Tutorial:
-Learn Web Development with Rails*](http://www.railstutorial.org/)
-by [Michael Hartl](http://www.michaelhartl.com/).
+This app is written using Ruby on Rails and has a complete authentication system from scratch and gives
+the users the ability to post and follow/unfollow each other.
